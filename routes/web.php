@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,12 @@ Route::post('/login/do', [TicketController::class, 'postLogin'])->name('postLogi
 Route::post('/registro/do', [TicketController::class, 'postRegister'])->name('postRegister');
 Route::get('/criar-ticket', [TicketController::class, 'showFormTicket'])->middleware('auth');
 Route::post('/criar-ticket/do', [TicketController::class, 'postTicket'])->name('postTicket');
+
+
+Route::get('/admin', [AdminController::class, 'login']);
+Route::post('/admin/do', [AdminController::class, 'postLogin']);
+Route::get('/admin/tickets', [AdminController::class, 'showTickets']);
+Route::get('/admin/ticket/{id}/accept', [AdminController::class, 'supportAcceptTicket']);
+Route::get('/admin/meus-tickets', [AdminController::class, 'showMyTickets']);
+Route::get('/admin/ticket/{id}/see', [AdminController::class, 'seeTicket']);
+Route::post('/admin/ticket/{id}/see', [AdminController::class, 'postResponseTicket'])->name('responseTicketCustomer');

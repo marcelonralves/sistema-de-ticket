@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TicketRequest;
 use App\Models\Ticket;
 use App\Models\TicketCategory;
+use App\Models\TicketMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,11 @@ use Illuminate\Support\Facades\Hash;
 
 class TicketController extends Controller
 {
+
+    public function test()
+    {
+        return view('test');
+    }
     public function login()
     {
         return view('form-auth');
@@ -72,12 +78,17 @@ class TicketController extends Controller
         $newTicket = new Ticket;
         $newTicket->title = $request->input('title');
         $newTicket->priority = $request->input('priority');
-        $newTicket->content = $request->input('content');
         $newTicket->category_id = $request->input('category_id');
         $newTicket->customer_id = Auth::id();
 
         $newTicket->save();
 
-        return back()->with('message', 'Ticket enviado com sucesso!');
+        $messageTicket = new TicketMessage;
+        $messageTicket->ticket_id = $newTicket->id;
+        $messageTicket->content = $request->input('content');
+        $messageTicket->user_id = Auth::id();
+        $messageTicket->save();
+
+        return back()->with('status', 'Ticket enviado com sucesso!');
     }
 }

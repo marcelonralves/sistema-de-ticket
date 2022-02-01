@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ticket extends Model
+class TicketMessage extends Model
 {
     use HasFactory;
 
-    public function customer()
-    {
-        return $this->hasOne(User::class);
-    }
+    protected $fillable = [
+        'user_id',
+        'content',
+        'ticket_id'
+    ];
 }

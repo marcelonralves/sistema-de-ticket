@@ -40,24 +40,31 @@
     <link href="{{ asset('css/form-validation.css') }}" rel="stylesheet">
 </head>
 <body class="bg-light">
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
 
 <div class="container">
     <main>
-        <div class="py-5 text-center">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
+        <div class="py-3 text-center">
             <h2>Criar Ticket</h2>
             <p class="lead">Preencha o formulário abaixo que a nossa equipe irá lhe dar o suporte o mais rápido possível!</p>
         </div>
-        <div class="col-12 col-lg-8">
-            <h4 class="mb-3">Ticket</h4>
+        <div class="col-12 col-lg-12">
+            <h4 class="mb-2">Ticket</h4>
             <form class="needs-validation" method="post" action="{{ route('postTicket') }}">
                 @csrf
                 <div class="row g-3">
