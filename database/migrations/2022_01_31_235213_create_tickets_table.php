@@ -17,7 +17,7 @@ class CreateTicketsTable extends Migration
             $table->id();
             $table->string("title");
             $table->string("priority");
-            $table->foreignId("departaments");
+            $table->longText("content");
             $table->foreignId("category_id");
             $table->foreignId("customer_id");
             $table->timestamps();
